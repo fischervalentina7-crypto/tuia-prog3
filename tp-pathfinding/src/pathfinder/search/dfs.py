@@ -24,5 +24,19 @@ class DepthFirstSearch:
         # Initialize frontier with the root node
         # TODO Complete the rest!!
         # ...
+        if (grid.objective_test(root)):
+            return Solution(root)
 
+        frontier = StackFrontier()
+        frontier.add(root)
+
+        while not frontier.is_empty(): 
+            n = frontier.remove()
+
+            for i in grid.actions(n.state):
+                s = grid.result(n.state, i)
+                nn = Node("", s, n.cost + grid.c(n.state, i), n, i)
+
+
+            
         return NoSolution(expanded)

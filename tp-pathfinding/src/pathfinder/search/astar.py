@@ -26,4 +26,19 @@ class AStarSearch:
         # TODO Complete the rest!!
         # ...
 
+        frontier= PriorityQueueFrontier() #creo frontera
+        frontier.add(root)  #primer nodo, root
+
+        while not frontier.is_empty(): #mientras haya nodos en frontera
+            n = frontier.remove()
+            if grid.objective_test(n.state):
+                return Solution(n,reached) #si el nodo es el estado objetico, doy solucion
+
+            for i in grid.actions(n.state):
+                s= grid.result(n.state,i)
+                if s not in reached:
+                    nn = Node("", s, n.cost + grid.c(n.state, i), n, i)
+                    reached[s]= nn.cost
+                    frontier.add(nn)
+
         return NoSolution(reached)
